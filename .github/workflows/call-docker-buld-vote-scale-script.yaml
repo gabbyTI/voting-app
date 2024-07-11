@@ -1,10 +1,11 @@
-name: Build Result
+name: Build Vote Scaling Script
+
 on:
   push:
     branches:
       - main
     paths:
-      - 'result/**'
+      - 'scaler/scale-vote-hpa/**'
       - '.github/workflows/call-docker-build-result.yaml'
   pull_request:
     branches:
@@ -35,10 +36,10 @@ jobs:
       - name: Build, tag, and push Docker image to ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: 'result'
+          ECR_REPOSITORY: 'scale-vote-hpa'
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest ./result
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest ./scaler/scale-vote-hpa
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
