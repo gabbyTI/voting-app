@@ -1,6 +1,7 @@
+import datetime
+import os
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
-import os
 
 def scale_hpa():
     config.load_incluster_config()  # Load in-cluster Kubernetes config
