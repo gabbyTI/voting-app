@@ -43,4 +43,21 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
+      # Authenticate and push to Docker Hub
+      - name: Docker Hub Login
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Tag and push Docker image to Docker Hub
+        env:
+          DOCKERHUB_REPO: 'gabbyti/scale-vote-hpa'
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $DOCKERHUB_REPO:$IMAGE_TAG
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $DOCKERHUB_REPO:latest
+          docker push $DOCKERHUB_REPO:$IMAGE_TAG
+          docker push $DOCKERHUB_REPO:latest
+
 # build docker image
