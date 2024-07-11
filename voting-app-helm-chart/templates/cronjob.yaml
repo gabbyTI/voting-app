@@ -4,7 +4,7 @@ metadata:
   name: scale-hpa-weekdays
 spec:
   # schedule every day at 12 AM
-  schedule: '47 7 * * *'
+  schedule: '55 7 * * *'
   jobTemplate:
     spec:
       template:
@@ -12,7 +12,5 @@ spec:
           containers:
             - name: scale-vote-hpa
               image: 186587923291.dkr.ecr.us-east-2.amazonaws.com/scale-vote-hpa:latest
-              env:
-                - name: TZ
-                  value: 'US/Eastern'
+              stdin: true
           restartPolicy: OnFailure
