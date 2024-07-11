@@ -91,3 +91,12 @@ apps:
       enabled: false
       mountPath: /data
     hasEnv: false
+
+cronjobs:
+  - name: scale-vote-hpa-weekdays
+    schedule: '0 0 * * *' # Everyday 12AM
+    timeZone: 'America/New_York'
+    image:
+      name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/scale-vote-hpa
+      tag: latest
+    restartPolicy: OnFailure
