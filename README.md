@@ -1,65 +1,101 @@
-# Example Voting App
+# Voting App Deployment Documentation
 
-A simple distributed application running across multiple Docker containers.
+- [Voting App Deployment Documentation](#voting-app-deployment-documentation)
+  - [Introduction](#introduction)
+  - [Prerequisites](#prerequisites)
+  - [Infrastructure Setup](#infrastructure-setup)
+    - [Provisioning AWS EKS Cluster with Terraform](#provisioning-aws-eks-cluster-with-terraform)
+  - [Application Deployment](#application-deployment)
+    - [Helm Chart Overview](#helm-chart-overview)
+    - [Helm Values Files](#helm-values-files)
+  - [Continuous Integration/Continuous Deployment (CI/CD)](#continuous-integrationcontinuous-deployment-cicd)
+    - [GitHub Actions Pipeline](#github-actions-pipeline)
+    - [Argo CD Configuration](#argo-cd-configuration)
+    - [Infrastructure as Code (IaC) Pipeline](#infrastructure-as-code-iac-pipeline)
+  - [Maintenance](#maintenance)
+    - [Scaling Strategy](#scaling-strategy)
+  - [Diagrams](#diagrams)
+    - [Infrastructure deployment diagram](#infrastructure-deployment-diagram)
+    - [Application deployment diagram](#application-deployment-diagram)
+  - [Conclusion](#conclusion)
 
-## Getting started
+## Introduction
 
-Download [Docker Desktop](https://www.docker.com/products/docker-desktop) for Mac or Windows. [Docker Compose](https://docs.docker.com/compose) will be automatically installed. On Linux, make sure you have the latest version of [Compose](https://docs.docker.com/compose/install/).
+This document provides a comprehensive guide on deploying the Example Voting App using Kubernetes, Helm charts, GitHub Actions, Argo CD, and Terraform. It covers the setup of CI/CD pipelines for both application deployment and infrastructure management.
 
-This solution uses Python, Node.js, .NET, with Redis for messaging and Postgres for storage.
+## Prerequisites
 
-Run in this directory to build and run the app:
+- AWS account with access to EKS, S3, ECR, and IAM services.
+- Experience with Docker and GitHub Actions for CI/CD pipelines.
+- Understanding of microservices architecture and deployment on EKS.
+- Proficiency in Infrastructure as Code (IaC) using Terraform and Helm charting.
+- Familiarity with DevSecOps practices.
 
-```shell
-docker compose up
-```
+## Infrastructure Setup
 
-The `vote` app will be running at [http://localhost:5000](http://localhost:5000), and the `results` will be at [http://localhost:5001](http://localhost:5001).
+### Provisioning AWS EKS Cluster with Terraform
 
-Alternately, if you want to run it on a [Docker Swarm](https://docs.docker.com/engine/swarm/), first make sure you have a swarm. If you don't, run:
+Utilized Terraform scripts to provision an AWS EKS cluster with an initial node count of 1, scaling up to a maximum of 5 nodes. Configured networking to allow traffic on ports 31000 (vote web page) and 31001 (result web page) via security group rules. Ensured security by implementing relevant firewall rules and IP restrictions.
 
-```shell
-docker swarm init
-```
+[Click here for Infrastructure Deployment Details](infrastructure/README.md)
 
-Once you have your swarm, in this directory run:
+## Application Deployment
 
-```shell
-docker stack deploy --compose-file docker-stack.yml vote
-```
+### Helm Chart Overview
 
-## Run the app in Kubernetes
+Developed Helm chart templates for microservices:
 
-The folder k8s-specifications contains the YAML specifications of the Voting App's services.
+- `hpa.yaml`: Horizontal Pod Autoscaler configuration.
+- `deployment.yaml`: Deployment configurations for vote, result, and worker microservices.
+- `service.yaml`: Service definitions for exposing microservices internally.
+- `cronjob.yaml`: Scheduled jobs configuration.
 
-Run the following command to create the deployments and services. Note it will create these resources in your current namespace (`default` if you haven't changed it.)
+### Helm Values Files
 
-```shell
-kubectl create -f k8s-specifications/
-```
+Created values files to customize deployment configurations for different environments and scaling requirements.
 
-The `vote` web app is then available on port 31000 on each host of the cluster, the `result` web app is available on port 31001.
+[Click here for more details about the helm charts](voting-app-helm-chart/README.md)
 
-To remove them, run:
+## Continuous Integration/Continuous Deployment (CI/CD)
 
-```shell
-kubectl delete -f k8s-specifications/
-```
+### GitHub Actions Pipeline
 
-## Architecture
+Implemented GitHub Actions pipeline for:
 
-![Architecture diagram](architecture.excalidraw.png)
+- Building Docker images for vote, result, and worker microservices.
+- Automated scaling script for vote microservice during weekdays.
 
-* A front-end web app in [Python](/vote) which lets you vote between two options
-* A [Redis](https://hub.docker.com/_/redis/) which collects new votes
-* A [.NET](/worker/) worker which consumes votes and stores them in…
-* A [Postgres](https://hub.docker.com/_/postgres/) database backed by a Docker volume
-* A [Node.js](/result) web app which shows the results of the voting in real time
+### Argo CD Configuration
 
-## Notes
+Integrated Argo CD for continuous deployment of Helm charts to the EKS cluster upon updates to the Helm chart repository.
 
-The voting application only accepts one vote per client browser. It does not register additional votes if a vote has already been submitted from a client.
+### Infrastructure as Code (IaC) Pipeline
 
-This isn't an example of a properly architected perfectly designed distributed app... it's just a simple
-example of the various types of pieces and languages you might see (queues, persistent data, etc), and how to
-deal with them in Docker at a basic level.
+Established a CI/CD pipeline for managing infrastructure changes using Terraform scripts. Automated application of Terraform changes to the AWS infrastructure upon code updates.
+[Click here for to see pipeline script](.github/workflows/call-apply-terraform-eks-infra.yaml)
+
+## Maintenance
+
+To ensure the application handles varying traffic patterns effectively, I have implemented a scaling strategy for the vote microservice. This includes an automated script that adjusts the service's replicas during weekdays to accommodate higher traffic volumes.
+
+### Scaling Strategy
+
+- **Automated Scaling Script**: A GitHub Actions pipeline includes a script that automatically scales the vote microservice based on traffic patterns. The script increases the number of replicas during weekdays to manage higher traffic and scales down during weekends.
+
+- **Horizontal Pod Autoscaler (HPA)**: Configured in the Helm charts (hpa.yaml) to adjust the number of pods based on CPU utilization and other relevant metrics.
+
+[Click here to view Scaling python script](./scaler/scale-vote-hpa/scale_hpa.py)
+
+## Diagrams
+
+### Infrastructure deployment diagram
+
+![eks_Infraastructure_deployment](eks_Infraastructure_deployment.png)
+
+### Application deployment diagram
+
+![alt text](argocd_deployment_pipeline.png)
+
+## Conclusion
+
+This documentation outlines the deployment process of the Voting App, leveraging AWS infrastructure, Kubernetes, Azure Storage, Helm charts, and CI/CD pipelines. It covers the setup and configuration required for deploying and maintaining a scalable and resilient application architecture in a cloud environment.
