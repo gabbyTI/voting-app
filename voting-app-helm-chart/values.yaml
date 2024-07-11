@@ -8,7 +8,7 @@ apps:
     isAutoScalable: true
     image:
       name: dockersamples/examplevotingapp_vote
-      tag:
+      tag: latest
     service:
       enabled: true
       port: 5000
@@ -25,7 +25,7 @@ apps:
     isAutoScalable: false
     image:
       name: dockersamples/examplevotingapp_result
-      tag:
+      tag: latest
     service:
       enabled: true
       port: 5001
@@ -53,7 +53,7 @@ apps:
       mountPath: /data
     hasEnv: false
 
-  - name: postgres
+  - name: db
     replicas: 1
     containerPort: 5432
     isAutoScalable: false
@@ -77,11 +77,11 @@ apps:
 
   - name: worker
     replicas: 1
-    containerPort:
+    containerPort: 64000
     isAutoScalable: false
     image:
       name: dockersamples/examplevotingapp_worker
-      tag:
+      tag: latest
     service:
       enabled: false
       port:

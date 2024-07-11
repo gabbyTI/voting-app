@@ -35,9 +35,6 @@ spec:
           volumeMounts:
             - mountPath: {{ .volume.mountPath }}
               name: {{ .name }}-data
-          volumes:
-            - name: {{ .name }}-data
-              emptyDir: {} 
           {{- end }}
           resources:
             requests:
@@ -46,5 +43,10 @@ spec:
             limits:
               memory: '150Mi'
               cpu: '100'
+      {{- if .volume.enabled }}
+      volumes:
+        - name: {{ .name }}-data
+          emptyDir: {} 
+      {{- end }}
 ---
 {{- end -}}
