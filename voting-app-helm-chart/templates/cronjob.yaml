@@ -4,7 +4,7 @@ metadata:
   name: scale-hpa-weekdays
 spec:
   # schedule every day at 12 AM
-  schedule: '55 7 * * *'
+  schedule: '8 8 * * *'
   jobTemplate:
     spec:
       template:
