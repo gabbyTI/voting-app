@@ -7,7 +7,7 @@ apps:
     containerPort: 80
     isAutoScalable: true
     image:
-      name: dockersamples/examplevotingapp_vote
+      name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/vote # dockersamples/examplevotingapp_vote
       tag: latest
     service:
       enabled: true
@@ -24,7 +24,7 @@ apps:
     containerPort: 80
     isAutoScalable: false
     image:
-      name: dockersamples/examplevotingapp_result
+      name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/result # dockersamples/examplevotingapp_result
       tag: latest
     service:
       enabled: true
@@ -80,7 +80,7 @@ apps:
     containerPort: 64000
     isAutoScalable: false
     image:
-      name: dockersamples/examplevotingapp_worker
+      name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/worker # dockersamples/examplevotingapp_worker
       tag: latest
     service:
       enabled: false
