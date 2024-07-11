@@ -6,13 +6,13 @@ on:
       - main
     paths:
       - 'scaler/scale-vote-hpa/**'
-      - '.github/workflows/call-docker-build-result.yaml'
+      - '.github/workflows/call-docker-build-vote-scale-script.yaml'
   pull_request:
     branches:
       - main
     paths:
       - 'result/**'
-      - '.github/workflows/call-docker-build-result.yaml'
+      - '.github/workflows/call-docker-build-vote-scale-script.yaml'
 
 jobs:
   build-and-push:
