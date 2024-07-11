@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scale-hpa-weekdays
+spec:
+  # schedule every day at 12 AM
+  schedule: '47 7 * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: scale-vote-hpa
+              image: 186587923291.dkr.ecr.us-east-2.amazonaws.com/scale-vote-hpa:latest
+              env:
+                - name: TZ
+                  value: 'US/Eastern'
+          restartPolicy: OnFailure
