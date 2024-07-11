@@ -10,7 +10,7 @@ This repository contains Terraform scripts for deploying an Amazon EKS cluster w
   - [Usage](#usage)
   - [Resources](#resources)
   - [Outputs](#outputs)
-  - [License](#license)
+  - [Additional Notes](#additional-notes)
 
 ## Prerequisites
 
@@ -31,11 +31,13 @@ Before you begin, ensure you have the following installed:
 
 2. **Initialize the Terraform configuration**:
 
-   ```sh
-   terraform init
-   ```
+> ⚠️ if you are not a remote backend, please go to the `backend.tf` and comment the contents before you proceed
 
-3. **Generate and review the execution plan**:
+```sh
+terraform init
+```
+
+1. **Generate and review the execution plan**:
 
    ```sh
    terraform plan
@@ -43,7 +45,7 @@ Before you begin, ensure you have the following installed:
 
    The `terraform plan` command will generate an execution plan showing the actions Terraform will take to reach the desired state defined in the configuration files.
 
-4. **Apply the execution plan**:
+2. **Apply the execution plan**:
 
    ```sh
    terraform apply
@@ -103,6 +105,17 @@ The following outputs will be available after applying the Terraform plan:
 - `endpoint`: The endpoint for the EKS cluster.
 - `kubeconfig-certificate-authority-data`: The certificate authority data for the EKS cluster.
 
-## License
+## Additional Notes
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- Make sure to disable the `backend.tf` file by commenting the entire contents like so:
+
+```yaml
+# terraform {
+#   backend "azurerm" {
+#     resource_group_name  = "rg-terraform-backend"
+#     storage_account_name = "ibenyestorageaccount"
+#     container_name       = "backendcontainer"
+#     key                  = "knowledgebase/eks/terraform.tfstate"
+#   }
+# }
+```
