@@ -8,7 +8,7 @@ apps:
     isAutoScalable: true
     image:
       name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/vote # dockersamples/examplevotingapp_vote
-      tag: latest
+      tag: 9ef83ce1a688461585539381dbd5a3b8ed598b14
     service:
       enabled: true
       port: 5000
@@ -25,7 +25,7 @@ apps:
     isAutoScalable: false
     image:
       name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/result # dockersamples/examplevotingapp_result
-      tag: latest
+      tag: 9ef83ce1a688461585539381dbd5a3b8ed598b14
     service:
       enabled: true
       port: 5001
@@ -81,7 +81,7 @@ apps:
     isAutoScalable: false
     image:
       name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/worker # dockersamples/examplevotingapp_worker
-      tag: latest
+      tag: 9ef83ce1a688461585539381dbd5a3b8ed598b14
     service:
       enabled: false
       port:
