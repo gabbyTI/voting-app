@@ -1,0 +1,93 @@
+namespace: voting-app
+name: voting-app-microservices
+
+apps:
+  - name: vote
+    replicas: 1
+    containerPort: 80
+    isAutoScalable: true
+    image:
+      name: dockersamples/examplevotingapp_vote
+      tag:
+    service:
+      enabled: true
+      port: 5000
+      type: NodePort
+      nodePort: 31000
+    volume:
+      enabled: false
+      mountPath:
+    hasEnv: false
+
+  - name: result
+    replicas: 1
+    containerPort: 80
+    isAutoScalable: false
+    image:
+      name: dockersamples/examplevotingapp_result
+      tag:
+    service:
+      enabled: true
+      port: 5001
+      type: NodePort
+      nodePort: 31001
+    volume:
+      enabled: false
+      mountPath:
+    hasEnv: false
+
+  - name: redis
+    replicas: 1
+    containerPort: 6379
+    isAutoScalable: false
+    image:
+      name: redis
+      tag: alpine
+    service:
+      enabled: true
+      port: 6379
+      type: ClusterIP
+      nodePort:
+    volume:
+      enabled: true
+      mountPath: /data
+    hasEnv: false
+
+  - name: postgres
+    replicas: 1
+    containerPort: 5432
+    isAutoScalable: false
+    image:
+      name: postgres
+      tag: 15-alpine
+    service:
+      enabled: true
+      port: 5432
+      type: ClusterIP
+      nodePort:
+    volume:
+      enabled: true
+      mountPath: /var/lib/postgresql/data
+    hasEnv: true
+    env:
+      - name: POSTGRES_USER
+        value: postgres
+      - name: POSTGRES_PASSWORD
+        value: postgres
+
+  - name: worker
+    replicas: 1
+    containerPort:
+    isAutoScalable: false
+    image:
+      name: dockersamples/examplevotingapp_worker
+      tag:
+    service:
+      enabled: false
+      port:
+      type:
+      nodePort:
+    volume:
+      enabled: false
+      mountPath: /data
+    hasEnv: false

@@ -1,0 +1,50 @@
+{{- $namespace := .Values.namespace }}
+
+{{- range $i, $app := .Values.apps }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .name }}
+  name: {{ .name }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: "{{ .image.name }}:{{ .image.tag }}"
+          ports:
+            - name: {{ .name }}
+              containerPort: {{ .containerPort }}
+          {{- if .hasEnv }}
+          env:
+          {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
+          {{- end }}
+          {{- if .volume.enabled }}
+          volumeMounts:
+            - mountPath: {{ .volume.mountPath }}
+              name: {{ .name }}-data
+          volumes:
+            - name: {{ .name }}-data
+              emptyDir: {} 
+          {{- end }}
+          resources:
+            requests:
+              memory: '100Mi'
+              cpu: '50m'
+            limits:
+              memory: '150Mi'
+              cpu: '100'
+---
+{{- end -}}
