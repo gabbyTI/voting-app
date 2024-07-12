@@ -1,5 +1,15 @@
 # Voting App Helm Charts
 
+- [Voting App Helm Charts](#voting-app-helm-charts)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Customizing Deployment](#customizing-deployment)
+    - [Namespace and Release Name](#namespace-and-release-name)
+    - [Applications](#applications)
+  - [Uninstallation](#uninstallation)
+  - [Additional Notes](#additional-notes)
+    - [CronJob for Autoscaling](#cronjob-for-autoscaling)
+
 This repository contains Helm charts for deploying the Voting Microservice App on Kubernetes clusters using Helm.
 
 ## Prerequisites
@@ -36,6 +46,13 @@ To install the Voting App using Helm, follow these steps:
    ```
 
    Replace `my-namespace` with your Kubernetes namespace.
+
+4. **Accessesing the application**: Vistion the following url on you local machine
+
+   ```txt
+   http//:localhost:31000 // Vote webpage
+   http//:localhost:31001 // Result webpage
+   ```
 
 ## Customizing Deployment
 
