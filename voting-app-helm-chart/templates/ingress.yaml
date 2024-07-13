@@ -1,4 +1,3 @@
-# {{- $env := .Values.env }}
 {{- range $i, $app := .Values.apps }}
 
 {{- if ((.ingress).enabled) -}}
@@ -9,9 +8,6 @@ metadata:
   name: {{ .name }}-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    # {{ if eq $env "Development" }}
-    # nginx.ingress.kubernetes.io/rewrite-target: /$2
-    # {{ end }}
 spec:
   ingressClassName: nginx
   rules:
