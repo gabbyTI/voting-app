@@ -12,8 +12,7 @@ spec:
   ingressClassName: nginx
   rules:
       {{- range $i, $host := .ingress.hosts }}
-      - host: {{ .host }}
-        http:
+      - http:
           paths:
             {{- toYaml .paths | nindent 12 }}
       {{ end }}
