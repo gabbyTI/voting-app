@@ -18,6 +18,23 @@ apps:
       enabled: false
       mountPath:
     hasEnv: false
+    ingress:
+      enabled: true
+      className: 'nginx'
+      annotations:
+        {}
+        # kubernetes.io/ingress.class: nginx
+        # kubernetes.io/tls-acme: "true"
+      hosts:
+        - http:
+          paths:
+            - path: /vote
+              pathType: Prefix
+              backend:
+                service:
+                  name: vote
+                  port:
+                    number: 80
 
   - name: result
     replicas: 1
