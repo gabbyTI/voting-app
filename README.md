@@ -97,8 +97,8 @@ To ensure the application handles varying traffic patterns effectively, I have i
 
 Click the links to visit the application
 
-- [Voting App Link](http://3.143.234.149:31000/)
-- [Result App Link](http://3.143.234.149:31001/)
+- [Voting App Link - vote.gabrielibenye.com](http://vote.gabrielibenye.com/)
+- [Result App Link - result.gabrielibenye.com](http://result.gabrielibenye.com/)
 
 ---
 
