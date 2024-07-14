@@ -55,6 +55,7 @@ Developed Helm chart templates for microservices:
 Created values files to customize deployment configurations for different environments and scaling requirements.
 
 [Click here for more details about the helm charts](voting-app-helm-chart/README.md)
+[Click here for details about the GitOps Deployment pipeline](CICD_PIPELINE.md)
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
 
