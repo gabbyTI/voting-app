@@ -16,7 +16,7 @@
     - [Scaling Strategy](#scaling-strategy)
   - [Diagrams](#diagrams)
     - [Infrastructure deployment diagram](#infrastructure-deployment-diagram)
-    - [Application deployment diagram](#application-deployment-diagram)
+    - [Application deployment images](#application-deployment-images)
   - [Conclusion](#conclusion)
 
 ## Introduction
@@ -93,7 +93,7 @@ To ensure the application handles varying traffic patterns effectively, I have i
 
 ![eks_Infraastructure_deployment](eks_Infraastructure_deployment.png)
 
-### Application deployment diagram
+### Application deployment images
 
 Click the links to visit the application
 
@@ -107,6 +107,10 @@ Click the links to visit the application
 ---
 
 ![argocd voting app dashboard](argocd.png)
+
+---
+
+![voting-app-resources](voting-app-resources.png)
 
 ## Conclusion
 
