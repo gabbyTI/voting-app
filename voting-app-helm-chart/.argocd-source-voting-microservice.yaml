@@ -1,0 +1,20 @@
+helm:
+  parameters:
+  - name: image[0].name
+    value: 186587923291.dkr.ecr.us-east-2.amazonaws.com/vote
+    forcestring: true
+  - name: image[0].tag
+    value: latest@sha256:244fe13d04bf1b526cad523950365308d3470dc6505e1716f762415a1e73375b
+    forcestring: true
+  - name: image[1].name
+    value: 186587923291.dkr.ecr.us-east-2.amazonaws.com/result
+    forcestring: true
+  - name: image[1].tag
+    value: latest@sha256:71e0c9c7b6faf50dce3ab21dfa8ca7e6e974370cc2281f0bc484c24e9e891341
+    forcestring: true
+  - name: mage[4].name
+    value: 186587923291.dkr.ecr.us-east-2.amazonaws.com/worker
+    forcestring: true
+  - name: image[4].tag
+    value: latest@sha256:8c44322ebb3e27b6e7ccdd46d86c933c530fed6cb3af273a2d30ddf6bb653779
+    forcestring: true
