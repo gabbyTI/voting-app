@@ -94,12 +94,16 @@ To ensure the application handles varying traffic patterns effectively, I have i
 
 ### Application deployment diagram
 
-> Click the links to visit the application
->
-> - [Voting App Link](http://3.143.234.149:31000/)
-> - [Result App Link](http://3.143.234.149:31001/)
+Click the links to visit the application
 
-![argocd_deployment_pipeline](argocd_deployment_pipeline.png)
+- [Voting App Link](http://3.143.234.149:31000/)
+- [Result App Link](http://3.143.234.149:31001/)
+
+---
+
+![argocd-gitops-flow](argocd-gitops-flow.drawio.png)
+
+---
 
 ![argocd voting app dashboard](argocd.png)
 
