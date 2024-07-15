@@ -1,4 +1,3 @@
-namespace: voting-app
 name: voting-app-microservices
 
 apps:
@@ -13,13 +12,13 @@ apps:
       enabled: true
       port: 5000
       type: NodePort
-      nodePort: 31000
+      nodePort: 31002
     volume:
       enabled: false
       mountPath:
     hasEnv: false
     ingress:
-      enabled: true
+      enabled: false
       className: 'nginx'
       annotations:
         {}
@@ -48,13 +47,13 @@ apps:
       enabled: true
       port: 5001
       type: NodePort
-      nodePort: 31001
+      nodePort: 31003
     volume:
       enabled: false
       mountPath:
     hasEnv: false
     ingress:
-      enabled: true
+      enabled: false
       className: 'nginx'
       annotations:
         {}
@@ -128,9 +127,10 @@ apps:
 
 cronjobs:
   - name: scale-vote-hpa-weekdays
-    schedule: '0 0 * * *' # Everyday 12AM
+    schedule: '41 17 * * *' # Everyday 12AM
     timeZone: 'America/New_York'
     image:
       name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/scale-vote-hpa
       tag: latest
     restartPolicy: OnFailure
+    serviceAccountName: 'sa-voting-app'
