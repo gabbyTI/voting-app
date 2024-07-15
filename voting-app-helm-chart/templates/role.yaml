@@ -20,7 +20,7 @@ metadata:
   name: cluster-admin-rolebinding
 subjects:
   - kind: ServiceAccount
-    name: sa-cluster-admin
+    name: sa-voting-app
     namespace: voting-app
 roleRef:
   kind: ClusterRole
