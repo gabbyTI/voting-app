@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: sa-voting-app
+  name: scheduled-autoscaler-service-account
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: cluster-admin-role
+  name: cluster-hpa-role
 rules:
-  - apiGroups: ['*']
-    resources: ['*']
+  - apiGroups: ['autoscaling']
+    resources: ['horizontalpodautoscalers']
     verbs: ['*']
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: cluster-admin-rolebinding
+  name: cluster-hpa-rolebinding
 subjects:
   - kind: ServiceAccount
-    name: sa-voting-app
+    name: scheduled-autoscaler-service-account
     namespace: voting-app
 roleRef:
   kind: ClusterRole
-  name: cluster-admin-role
+  name: cluster-hpa-role
   apiGroup: rbac.authorization.k8s.io
