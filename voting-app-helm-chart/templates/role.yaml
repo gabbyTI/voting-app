@@ -10,7 +10,7 @@ metadata:
   name: cluster-admin-role
 rules:
   - apiGroups: ['*']
-    resources: ['horizontalpodautoscalers']
+    resources: ['*']
     verbs: ['*']
 
 ---
