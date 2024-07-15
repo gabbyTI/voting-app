@@ -127,7 +127,7 @@ apps:
 
 cronjobs:
   - name: scale-vote-hpa-weekdays
-    schedule: '13 18 * * *' # Everyday 12AM
+    schedule: '20 18 * * *' # Everyday 12AM
     timeZone: 'America/New_York'
     image:
       name: 186587923291.dkr.ecr.us-east-2.amazonaws.com/scale-vote-hpa
