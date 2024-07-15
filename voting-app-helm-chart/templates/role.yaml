@@ -5,25 +5,23 @@ metadata:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: hpa-role
+  name: cluster-admin-role
 rules:
-  - apiGroups: ['']
-    resources: ['horizontalpodautoscalers', 'pods']
-    verbs: ['get', 'list', 'watch', 'update', 'patch']
+  - apiGroups: ['*']
+    resources: ['*']
+    verbs: ['*']
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: hpa-rolebinding
-
+  name: cluster-admin-rolebinding
 subjects:
   - kind: ServiceAccount
-    name: sa-voting-app
-
+    name: sa-cluster-admin
 roleRef:
-  kind: Role
-  name: hpa-role
+  kind: ClusterRole
+  name: cluster-admin-role
   apiGroup: rbac.authorization.k8s.io
