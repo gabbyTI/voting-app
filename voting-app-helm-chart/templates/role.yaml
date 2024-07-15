@@ -21,6 +21,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: sa-cluster-admin
+    namespace: voting-app
 roleRef:
   kind: ClusterRole
   name: cluster-admin-role
