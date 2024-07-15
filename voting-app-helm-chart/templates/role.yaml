@@ -9,7 +9,7 @@ kind: ClusterRole
 metadata:
   name: cluster-hpa-role
 rules:
-  - apiGroups: ['*']
+  - apiGroups: ['autoscaling']
     resources: ['horizontalpodautoscalers']
     verbs: ['*']
 
