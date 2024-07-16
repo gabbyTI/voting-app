@@ -2,12 +2,11 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: scheduled-autoscaler-service-account
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
-  name: cluster-hpa-role
+  name: hpa-role
 rules:
   - apiGroups: ['autoscaling']
     resources: ['horizontalpodautoscalers']
@@ -15,9 +14,9 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
-  name: cluster-hpa-rolebinding
+  name: hpa-rolebinding
 subjects:
   - kind: ServiceAccount
     name: scheduled-autoscaler-service-account
