@@ -22,6 +22,6 @@ subjects:
     name: scheduled-autoscaler-service-account
     namespace: voting-app
 roleRef:
-  kind: ClusterRole
+  kind: Role
   name: hpa-role
   apiGroup: rbac.authorization.k8s.io
