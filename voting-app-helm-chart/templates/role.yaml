@@ -23,5 +23,5 @@ subjects:
     namespace: voting-app
 roleRef:
   kind: ClusterRole
-  name: cluster-hpa-role
+  name: hpa-role
   apiGroup: rbac.authorization.k8s.io
